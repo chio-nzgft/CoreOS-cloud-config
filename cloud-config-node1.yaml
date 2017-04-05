@@ -58,7 +58,7 @@ coreos:
   flannel:
     interface: 192.168.0.69
 
- units:
+  units:
     - name: etcd2.service
       command: start
       drop-ins:
