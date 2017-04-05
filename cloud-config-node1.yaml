@@ -14,7 +14,7 @@ write_files:
          192.168.0.70 coreos2
          192.168.0.71 coreos3
 write_files:
-   - path: "/root/check_node2"
+   - path: "/root/check_node"
      permissions: 0755
      owner: root:root
      content: |
@@ -23,18 +23,12 @@ write_files:
           sleep 3
          done
          echo etcdctl member add node02 http://192.168.0.70:2380
-         rm -rf /root/check_node2
-write_files:
-   - path: "/root/check_node3"
-     permissions: 0755
-     owner: root:root
-     content: |
          until /usr/bin/curl http://192.168.0.71:2380
          do
           sleep 3
          done
          echo etcdctl member add node02 http://192.168.0.71:2380
-         rm -rf /root/check_node3
+         rm -rf /root/check_node
 coreos:
   units:
     - name: etcd2.service
@@ -74,10 +68,10 @@ coreos:
       command: start
       content: |
         [Unit]
-        Description=Rc.local
+        Description=rc.local
              
         [Service]
-        ExecStart=/root/check_node2 &;/root/check_node3 &
+        ExecStart=/root/check_node &
         RemainAfterExit=yes
         Type=oneshot
 
