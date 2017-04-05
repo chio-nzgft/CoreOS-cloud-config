@@ -81,8 +81,8 @@ coreos:
             Requires=etcd2.service
 
             [Service]
-            ExecStartPre=-/bin/bash -c "until /usr/bin/curl http://192.168.0.70:2380; do  etcdctl member add node02 http://192.168.0.70:238 ; sleep 3; done" &
-            ExecStartPre=-/bin/bash -c "until /usr/bin/curl http://192.168.0.71:2380; do  etcdctl member add node03 http://192.168.0.71:238 ; sleep 3; done" &
+            ExecStartPre=-/bin/bash -c "until /usr/bin/curl http://192.168.0.70:2380; do ; sleep 3; done ; etcdctl member add node02 http://192.168.0.70:238 " &
+            ExecStartPre=-/bin/bash -c "until /usr/bin/curl http://192.168.0.71:2380; do ; sleep 3; done ; etcdctl member add node02 http://192.168.0.71:238" &
             ExecStartPre=/usr/bin/etcdctl set /coreos.com/network/config '{ "Network": "172.17.0.0/16" }'
 
             [Install]
