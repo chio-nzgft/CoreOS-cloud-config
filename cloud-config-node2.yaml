@@ -60,7 +60,7 @@ coreos:
 
   etcd2:
     name: "node02"
-    discovery: https://discovery.etcd.io/b44a63fd67711fc1b19eaf6b18887664
+    discovery: https://discovery.etcd.io/08c5c5c2b5cc52e5e3f90c5fc0908ff2
     advertise-client-urls: http://192.168.0.70:2379
     initial-advertise-peer-urls: http://192.168.0.70:2380
     listen-client-urls: http://0.0.0.0:2379
