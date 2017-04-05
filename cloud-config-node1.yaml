@@ -81,8 +81,6 @@ coreos:
             Requires=etcd2.service
 
             [Service]
-            ExecStartPre= etcdctl member add node02 http://192.168.0.70:2380
-            ExecStartPre= etcdctl member add node03 http://192.168.0.71:2380
             ExecStartPre=/usr/bin/etcdctl set /coreos.com/network/config '{ "Network": "172.17.0.0/16" }'
 
             [Install]
