@@ -1,7 +1,8 @@
 #cloud-config
 hostname: coreos3
-ssh_authorized_keys:
-   - ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAQEAs9jMlJJ..................M+CsRy+z8PzPQ== echochio
+users:
+  - name: core
+    passwd: $6$j1E6FdI8$/AW8orxphphWko6K.1btsaehB8ABK1LnPTi6WfEqQRWnYlVwsuxyAYyweSDpzZFdqxvsvPw184cR9470muDQe/
 
 coreos:
   units:
