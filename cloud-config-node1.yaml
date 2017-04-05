@@ -23,6 +23,7 @@ write_files:
           sleep 3
          done
          echo etcdctl member add node02 http://192.168.0.70:2380
+         rm -rf /root/check_node2
 write_files:
    - path: "/root/check_node3"
      permissions: 0755
@@ -33,7 +34,7 @@ write_files:
           sleep 3
          done
          echo etcdctl member add node02 http://192.168.0.71:2380
-        
+         rm -rf /root/check_node3
 coreos:
   units:
     - name: etcd2.service
