@@ -52,10 +52,10 @@ coreos:
   etcd2:
     name: "node01"
     discovery: https://discovery.etcd.io/b44a63fd67711fc1b19eaf6b18887664
-    advertise-client-urls: http://coreos1:2379
-    initial-advertise-peer-urls: http://coreos1:2380
+    advertise-client-urls: http://192.168.0.69:2379
+    initial-advertise-peer-urls: http://192.168.0.69:2380
     listen-client-urls: http://0.0.0.0:2379
-    listen-peer-urls: http://coreos1:2380
+    listen-peer-urls: http://192.168.0.69:2380
 
   flannel:
     interface: 192.168.0.69
@@ -81,8 +81,8 @@ coreos:
             Requires=etcd2.service
 
             [Service]
-            ExecStartPre= etcdctl member add node02 http://coreos2:2380
-            ExecStartPre= etcdctl member add node02 http://coreos3:2380
+            ExecStartPre= etcdctl member add node02 http://192.168.0.70:2380
+            ExecStartPre= etcdctl member add node03 http://192.168.0.71:2380
             ExecStartPre=/usr/bin/etcdctl set /coreos.com/network/config '{ "Network": "172.17.0.0/16" }'
 
             [Install]
