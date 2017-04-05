@@ -91,7 +91,6 @@ coreos:
             Requires=etcd2.service
 
             [Service]
-            ExecStartPre=/usr/bin/rm -rf /var/lib/etcd2/proxy;systemctl daemon-reload;systemctl restart etcd2
             ExecStartPre=/usr/bin/etcdctl set /coreos.com/network/config '{ "Network": "172.17.0.0/16" }'
 
             [Install]
