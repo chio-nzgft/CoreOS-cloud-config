@@ -57,6 +57,9 @@ coreos:
         - name: 50-network-config.conf
           content: |
             [Service]
+            ExecStartPre= [ -z "`cat /etc/hosts |grep coreos1`" ] && echo "192.168.0.69 coreos1" >> /etc/hosts
+	         ExecStartPre= [ -z "`cat /etc/hosts |grep coreos2`" ] && echo "192.168.0.70 coreos2" >> /etc/hosts
+	         ExecStartPre= [ -z "`cat /etc/hosts |grep coreos3`" ] && echo "192.168.0.71 coreos3" >> /etc/hosts
             Restart=always
 
             [Install]
