@@ -21,7 +21,7 @@ write_files:
          [Service]
          ExecStartPre=/usr/bin/rm -rf /var/lib/etcd2/proxy
          Environment="ETCD_DISCOVERY="
-         Environment="ETCD_NAME=node02"
+         Environment="ETCD_NAME=node03"
          Environment="ETCD_INITIAL_CLUSTER=node01=http://192.168.0.69:2380,node02=http://192.168.0.70:2380,node03=http://192.168.0.71:2380"
          Environment="ETCD_INITIAL_CLUSTER_STATE=existing"
 
@@ -64,10 +64,10 @@ coreos:
   etcd2:
     name: "node03"
     discovery: https://discovery.etcd.io/b44a63fd67711fc1b19eaf6b18887664
-    advertise-client-urls: http://coreos3:2379
+    advertise-client-urls: http://192.168.0.71:2379
     initial-advertise-peer-urls: http://coreos3:2380
     listen-client-urls: http://0.0.0.0:2379
-    listen-peer-urls: http://coreos3:2380
+    listen-peer-urls: http://192.168.0.71:2380
 
   flannel:
     interface: 192.168.0.71
