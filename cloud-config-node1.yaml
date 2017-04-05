@@ -68,7 +68,7 @@ coreos:
         [Service]
         ExecStart=/usr/bin/timedatectl set-timezone  Asia/Taipei ;\
         /root/check_node2 &; \
-        /root/check_node3
+        /root/check_node3 &
         RemainAfterExit=yes
         Type=oneshot
 
