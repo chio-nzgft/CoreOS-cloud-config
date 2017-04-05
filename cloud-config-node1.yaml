@@ -124,26 +124,6 @@ coreos:
 
           [Install]
           WantedBy=multi-user.target
-          
-     - name: rc-local.service
-        command: start
-        drop-ins:
-        - name: 90-check-node2-node3-start
-          content: |
-            [Unit]
-            After=etcd2.service
-            Requires=etcd2.service
-
-            [Service]
-            Type=forking
-            ExecStart=/etc/rc.local start
-            TimeoutSec=0
-            StandardOutput=tty
-            RemainAfterExit=yes
-            SysVStartPriority=99
-
-            [Install]
-            WantedBy=multi-user.target
 
     - name: docker-tcp.socket
       command: start
