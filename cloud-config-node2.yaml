@@ -13,17 +13,6 @@ write_files:
          192.168.0.69 coreos1
          192.168.0.70 coreos2
          192.168.0.71 coreos3    
-write_files:
-   - path: "/etc/hosts"
-     permissions: 0644
-     owner: root:root
-     content: |
-         127.0.0.1  localhost
-         ::1        localhost
-         192.168.0.69 coreos1
-         192.168.0.70 coreos2
-         192.168.0.71 coreos3
-
 coreos:
   units:
     - name: etcd2.service
