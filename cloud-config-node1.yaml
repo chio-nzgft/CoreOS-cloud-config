@@ -71,7 +71,8 @@ coreos:
         Description=rc.local
              
         [Service]
-        ExecStart=/root/check_node &
+        ExecStartPost=-/bin/bash -c "/root/check_node"
+        ExecStart=echo "OK"
         RemainAfterExit=yes
         Type=oneshot
 
