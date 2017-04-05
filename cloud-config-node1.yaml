@@ -3,7 +3,14 @@ hostname: coreos1
 users:
   - name: core
     passwd: $6$j1E6FdI8$/AW8orxphphWko6K.1btsaehB8ABK1LnPTi6WfEqQRWnYlVwsuxyAYyweSDpzZFdqxvsvPw184cR9470muDQe/
-
+write_files:
+   - path: "/etc/hosts"
+     permissions: 0600
+     owner: root:root
+     content: |
+         192.168.0.69 coreos1
+         192.168.0.70 coreos2
+         192.168.0.71 coreos3
 coreos:
   units:
     - name: etcd2.service
@@ -51,15 +58,7 @@ coreos:
   flannel:
     interface: 192.168.0.69
 
-  write_files:
-   - path: "/etc/hosts"
-     permissions: 0600
-     owner: root:root
-     content: |
-         192.168.0.69 coreos1
-         192.168.0.70 coreos2
-         192.168.0.71 coreos3
-  units:
+ units:
     - name: etcd2.service
       command: start
       drop-ins:
