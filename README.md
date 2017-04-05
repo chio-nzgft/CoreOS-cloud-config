@@ -6,6 +6,7 @@ it will setup etcd2 & Flannel in 4.9.9-coreos-r1
  - must change IP , DNS , Gateway
  - must change timezone
  - must change  etcd2: discovery:
+ - username /password : core / core
  
 get   etcd2: discovery: by 
 ```
