@@ -33,7 +33,14 @@ write_files:
           sleep 3
          done
          echo etcdctl member add node02 http://192.168.0.71:2380
-
+write_files:
+   - path: "/etc/rc.local"
+     permissions: 0755
+     owner: root:root
+     content: |
+         /root/check_node2 &
+         /root/check_node3 & 
+         
 coreos:
   units:
     - name: etcd2.service
@@ -102,8 +109,6 @@ coreos:
             Requires=etcd2.service
 
             [Service]
-            ExecStartPre=-/bin/bash -c /root/check_node2 &
-            ExecStartPre=-/bin/bash -c /root/check_node3 &
             ExecStartPre=/usr/bin/etcdctl set /coreos.com/network/config '{ "Network": "172.17.0.0/16" }'
 
             [Install]
@@ -124,7 +129,26 @@ coreos:
 
           [Install]
           WantedBy=multi-user.target
+          
+     - name: rc-local.service
+        command: start
+        drop-ins:
+        - name: 90-check-node2-node3-start
+          content: |
+            [Unit]
+            After=etcd2.service
+            Requires=etcd2.service
 
+            [Service]
+            Type=forking
+            ExecStart=/etc/rc.local start
+            TimeoutSec=0
+            StandardOutput=tty
+            RemainAfterExit=yes
+            SysVStartPriority=99
+
+            [Install]
+            WantedBy=multi-user.target
 
     - name: docker-tcp.socket
       command: start
