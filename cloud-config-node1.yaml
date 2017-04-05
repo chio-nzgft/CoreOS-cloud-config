@@ -8,6 +8,8 @@ write_files:
      permissions: 0600
      owner: root:root
      content: |
+         127.0.0.1  localhost
+         ::1        localhost
          192.168.0.69 coreos1
          192.168.0.70 coreos2
          192.168.0.71 coreos3
