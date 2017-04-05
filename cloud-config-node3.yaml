@@ -42,7 +42,7 @@ coreos:
 
   etcd2:
     name: "node03"
-    discovery: https://discovery.etcd.io/9555056f87b2eec75214dc27703e5add
+    discovery: https://discovery.etcd.io/b44a63fd67711fc1b19eaf6b18887664
     advertise-client-urls: http://coreos3:2379
     initial-advertise-peer-urls: http://coreos3:2380
     listen-client-urls: http://0.0.0.0:2379
