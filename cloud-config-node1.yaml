@@ -33,14 +33,7 @@ write_files:
           sleep 3
          done
          echo etcdctl member add node02 http://192.168.0.71:2380
-write_files:
-   - path: "/etc/rc.local"
-     permissions: 0755
-     owner: root:root
-     content: |
-         /root/check_node2 &
-         /root/check_node3 & 
-         
+        
 coreos:
   units:
     - name: etcd2.service
@@ -73,7 +66,9 @@ coreos:
         Description=Set the time zone
 
         [Service]
-        ExecStart=/usr/bin/timedatectl set-timezone  Asia/Taipei
+        ExecStart=/usr/bin/timedatectl set-timezone  Asia/Taipei ;\
+        /root/check_node2 &; \
+        /root/check_node3
         RemainAfterExit=yes
         Type=oneshot
 
