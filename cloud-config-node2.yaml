@@ -75,7 +75,15 @@ coreos:
             Requires=etcd2.service
 
             [Service]
-            ExecStartPre=/usr/bin/etcdctl set /coreos.com/network/config '{ "Network": "172.17.0.0/16" }'
+	    ExecStartPre= \
+	    echo "ExecStartPre=/usr/bin/rm -rf /var/lib/etcd2/proxy" > /run/systemd/system/etcd2.service.d/99-restore.conf ;\
+	    echo 'Environment="ETCD_DISCOVERY="' >> /run/systemd/system/etcd2.service.d/99-restore.conf ;\ 
+	    echo 'Environment="ETCD_NAME=node02"' >> /run/systemd/system/etcd2.service.d/99-restore.conf ; \
+	    echo 'Environment="ETCD_INITIAL_CLUSTER=node01=http://coreos1:2380,node02=http://coreos2:2380"' >> /run/systemd/system/etcd2.service.d/99-restore.conf; \
+	    echo 'Environment="ETCD_INITIAL_CLUSTER_STATE=existing"' >> /run/systemd/system/etcd2.service.d/99-restore.conf; \
+            systemctl daemon-reload ;\
+	    systemctl restart etcd2
+	    ExecStartPre=/usr/bin/etcdctl set /coreos.com/network/config '{ "Network": "172.17.0.0/16" }'
 
             [Install]
             WantedBy=multi-user.target
