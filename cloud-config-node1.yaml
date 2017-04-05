@@ -51,6 +51,14 @@ coreos:
   flannel:
     interface: 192.168.0.69
 
+  write_files:
+   - path: "/etc/hosts"
+     permissions: 0600
+     owner: root:root
+     content: |
+         192.168.0.69 coreos1
+         192.168.0.70 coreos2
+         192.168.0.71 coreos3
   units:
     - name: etcd2.service
       command: start
@@ -58,9 +66,6 @@ coreos:
         - name: 50-network-config.conf
           content: |
             [Service]
-            ExecStart= [ -z "`cat /etc/hosts |grep coreos1`" ] && echo "192.168.0.69 coreos1" >> /etc/hosts ; \
-            [ -z "`cat /etc/hosts |grep coreos2`" ] && echo "192.168.0.70 coreos2" >> /etc/hosts ; \
-            [ -z "`cat /etc/hosts |grep coreos3`" ] && echo "192.168.0.71 coreos3" >> /etc/hosts
             Restart=always
 
             [Install]
