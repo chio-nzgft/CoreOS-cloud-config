@@ -13,6 +13,27 @@ write_files:
          192.168.0.69 coreos1
          192.168.0.70 coreos2
          192.168.0.71 coreos3
+write_files:
+   - path: "/root/check_node2"
+     permissions: 0755
+     owner: root:root
+     content: |
+         until /usr/bin/curl http://192.168.0.70:2380
+         do
+          sleep 3
+         done
+         echo etcdctl member add node02 http://192.168.0.70:2380
+write_files:
+   - path: "/root/check_node3"
+     permissions: 0755
+     owner: root:root
+     content: |
+         until /usr/bin/curl http://192.168.0.71:2380
+         do
+          sleep 3
+         done
+         echo etcdctl member add node02 http://192.168.0.71:2380
+
 coreos:
   units:
     - name: etcd2.service
@@ -81,8 +102,8 @@ coreos:
             Requires=etcd2.service
 
             [Service]
-            ExecStartPre=-/bin/bash -c "until /usr/bin/curl http://192.168.0.70:2380; do ; sleep 3; done ; etcdctl member add node02 http://192.168.0.70:238 " &
-            ExecStartPre=-/bin/bash -c "until /usr/bin/curl http://192.168.0.71:2380; do ; sleep 3; done ; etcdctl member add node02 http://192.168.0.71:238" &
+            ExecStartPre=-/bin/bash -c /root/check_node2 &
+            ExecStartPre=-/bin/bash -c /root/check_node3 &
             ExecStartPre=/usr/bin/etcdctl set /coreos.com/network/config '{ "Network": "172.17.0.0/16" }'
 
             [Install]
