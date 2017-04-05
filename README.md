@@ -11,6 +11,16 @@ get   etcd2: discovery: by
 ```
 curl -w "\n" 'https://discovery.etcd.io/new?size=1'
 ```
+
+OR use script get-new-discover.sh to change cloud-config-node?.yaml file
+will get env  $DISCOVERY
+
+```
+sh ./ get-new-discover.sh
+d6676d5d7c22470158528bb5ff9a3469
+
+```
+
 TO install OS ....
 
 ```
