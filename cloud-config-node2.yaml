@@ -3,6 +3,17 @@ hostname: coreos2
 users:
   - name: core
     passwd: $6$j1E6FdI8$/AW8orxphphWko6K.1btsaehB8ABK1LnPTi6WfEqQRWnYlVwsuxyAYyweSDpzZFdqxvsvPw184cR9470muDQe/
+    
+write_files:
+   - path: "/etc/hosts"
+     permissions: 0644
+     owner: root:root
+     content: |
+         127.0.0.1  localhost
+         ::1        localhost
+         192.168.0.69 coreos1
+         192.168.0.70 coreos2
+         192.168.0.71 coreos3
 
 coreos:
   units:
@@ -58,9 +69,6 @@ coreos:
         - name: 50-network-config.conf
           content: |
             [Service]
-            ExecStartPre= [ -z "`cat /etc/hosts |grep coreos1`" ] && echo "192.168.0.69 coreos1" >> /etc/hosts
-            ExecStartPre= [ -z "`cat /etc/hosts |grep coreos2`" ] && echo "192.168.0.70 coreos2" >> /etc/hosts
-            ExecStartPre= [ -z "`cat /etc/hosts |grep coreos3`" ] && echo "192.168.0.71 coreos3" >> /etc/hosts
             Restart=always
 
             [Install]
