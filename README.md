@@ -1,7 +1,7 @@
 # CoreOS-cloud-config
 it will setup etcd2 & Flannel in 4.9.9-coreos-r1
 
- - must change ssh_authorized_keys:
+ - can use ssh_authorized_keys:
  - must change hostname
  - must change IP , DNS , Gateway
  - must change timezone
