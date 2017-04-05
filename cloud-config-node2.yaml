@@ -13,6 +13,8 @@ write_files:
          192.168.0.69 coreos1
          192.168.0.70 coreos2
          192.168.0.71 coreos3
+
+write_files:
     - path: "/run/systemd/system/etcd2.service.d/99-restore.conf"
       permissions: 0644
       owner: root:root
