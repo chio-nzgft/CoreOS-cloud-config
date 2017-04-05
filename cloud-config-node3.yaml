@@ -3,6 +3,16 @@ hostname: coreos3
 users:
   - name: core
     passwd: $6$j1E6FdI8$/AW8orxphphWko6K.1btsaehB8ABK1LnPTi6WfEqQRWnYlVwsuxyAYyweSDpzZFdqxvsvPw184cR9470muDQe/
+write_files:
+   - path: "/etc/hosts"
+     permissions: 0644
+     owner: root:root
+     content: |
+         127.0.0.1  localhost
+         ::1        localhost
+         192.168.0.69 coreos1
+         192.168.0.70 coreos2
+         192.168.0.71 coreos3
 
 coreos:
   units:
@@ -58,9 +68,6 @@ coreos:
         - name: 50-network-config.conf
           content: |
             [Service]
-            ExecStartPre= [ -z "`cat /etc/hosts |grep coreos1`" ] && echo "192.168.0.69 coreos1" >> /etc/hosts
-	    ExecStartPre= [ -z "`cat /etc/hosts |grep coreos2`" ] && echo "192.168.0.70 coreos2" >> /etc/hosts
-	    ExecStartPre= [ -z "`cat /etc/hosts |grep coreos3`" ] && echo "192.168.0.71 coreos3" >> /etc/hosts
             Restart=always
 
             [Install]
@@ -79,7 +86,7 @@ coreos:
 	    echo "ExecStartPre=/usr/bin/rm -rf /var/lib/etcd2/proxy" > /run/systemd/system/etcd2.service.d/99-restore.conf ;\
 	    echo 'Environment="ETCD_DISCOVERY="' >> /run/systemd/system/etcd2.service.d/99-restore.conf ;\ 
 	    echo 'Environment="ETCD_NAME=node02"' >> /run/systemd/system/etcd2.service.d/99-restore.conf ; \
-	    echo 'Environment="ETCD_INITIAL_CLUSTER=node01=http://coreos1:2380,node02=http://coreos2:2380,node3=http://coreos3:2380"' >> /run/systemd/system/etcd2.service.d/99-restore.conf; \
+	    echo 'Environment="ETCD_INITIAL_CLUSTER=node01=http://192.168.0.69:2380,node02=http://192.168.0.70:2380,node3=http://192.168.0.71:2380"' >> /run/systemd/system/etcd2.service.d/99-restore.conf; \
 	    echo 'Environment="ETCD_INITIAL_CLUSTER_STATE=existing"' >> /run/systemd/system/etcd2.service.d/99-restore.conf; \
             systemctl daemon-reload ;\
             ExecStartPre=/usr/bin/etcdctl set /coreos.com/network/config '{ "Network": "172.17.0.0/16" }'
