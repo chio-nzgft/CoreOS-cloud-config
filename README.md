@@ -57,3 +57,11 @@ core@coreos1 ~ # etcdctl member add node03 http://192.168.0.71:2380
 core@coreos3 ~ # systemctl daemon-reload
 core@coreos3 ~ # systemctl restart etcd2
 ```
+Check etcd2
+```
+core@coreos1 ~ #  etcdctl member list
+15466ed25d680366: name=node01 peerURLs=http://192.168.0.69:2380 clientURLs=http://192.168.0.69:2379 isLeader=true
+f41216d2d53f75ea: name=node02 peerURLs=http://192.168.0.70:2380 clientURLs=http://192.168.0.70:2379 isLeader=false
+6b1fb4d51773c501: name=node03 peerURLs=http://192.168.0.71:2380 clientURLs=http://192.168.0.71:2379 isLeader=false
+
+```
