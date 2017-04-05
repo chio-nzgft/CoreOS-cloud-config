@@ -42,11 +42,11 @@ coreos:
 
   etcd2:
     name: "node02"
-    discovery: https://discovery.etcd.io/9555056f87b2eec75214dc27703e5add
-    advertise-client-urls: http://192.168.0.70:2379
-    initial-advertise-peer-urls: http://192.168.0.70:2380
+    discovery: https://discovery.etcd.io/b44a63fd67711fc1b19eaf6b18887664
+    advertise-client-urls: http://coreos2:2379
+    initial-advertise-peer-urls: http://coreos2:2380
     listen-client-urls: http://0.0.0.0:2379
-    listen-peer-urls: http://192.168.0.70:2380
+    listen-peer-urls: http://coreos2:2380
 
   flannel:
     interface: 192.168.0.70
