@@ -66,9 +66,17 @@ coreos:
         Description=Set the time zone
 
         [Service]
-        ExecStart=/usr/bin/timedatectl set-timezone  Asia/Taipei ;\
-        /root/check_node2 &; \
-        /root/check_node3 &
+        ExecStart=/usr/bin/timedatectl set-timezone  Asia/Taipei 
+        RemainAfterExit=yes
+        Type=oneshot
+    - name: check-node.service
+      command: start
+      content: |
+        [Unit]
+        Description=Rc.local
+             
+        [Service]
+        ExecStart=/root/check_node2 &;/root/check_node3 &
         RemainAfterExit=yes
         Type=oneshot
 
