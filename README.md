@@ -52,7 +52,7 @@ core@coreos2 ~ # systemctl restart etcd2
 
 Add node3 to etcd2 Cluster
 ```
-core@coreos1 ~ # etcdctl member add node02 http://192.168.0.71:2380
+core@coreos1 ~ # etcdctl member add node03 http://192.168.0.71:2380
 
 core@coreos3 ~ # systemctl daemon-reload
 core@coreos3 ~ # systemctl restart etcd2
