@@ -59,8 +59,8 @@ coreos:
           content: |
             [Service]
             ExecStartPre= [ -z "`cat /etc/hosts |grep coreos1`" ] && echo "192.168.0.69 coreos1" >> /etc/hosts
-	    ExecStartPre= [ -z "`cat /etc/hosts |grep coreos2`" ] && echo "192.168.0.70 coreos2" >> /etc/hosts
-	    ExecStartPre= [ -z "`cat /etc/hosts |grep coreos3`" ] && echo "192.168.0.71 coreos3" >> /etc/hosts
+            ExecStartPre= [ -z "`cat /etc/hosts |grep coreos2`" ] && echo "192.168.0.70 coreos2" >> /etc/hosts
+            ExecStartPre= [ -z "`cat /etc/hosts |grep coreos3`" ] && echo "192.168.0.71 coreos3" >> /etc/hosts
             Restart=always
 
             [Install]
@@ -75,8 +75,8 @@ coreos:
             Requires=etcd2.service
 
             [Service]
-	    ExecStartPre= etcdctl member add node02 http://coreos2:2380
-	    ExecStartPre= etcdctl member add node02 http://coreos3:2380
+            ExecStartPre= etcdctl member add node02 http://coreos2:2380
+            ExecStartPre= etcdctl member add node02 http://coreos3:2380
             ExecStartPre=/usr/bin/etcdctl set /coreos.com/network/config '{ "Network": "172.17.0.0/16" }'
 
             [Install]
