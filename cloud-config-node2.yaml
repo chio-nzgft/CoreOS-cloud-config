@@ -17,7 +17,6 @@ write_files:
       permissions: 0644
       owner: root:root
       content: |       
-         ExecStartPre=/usr/bin/rm -rf /var/lib/etcd2/proxy
          Environment="ETCD_DISCOVERY="
          Environment="ETCD_NAME=node02"
          Environment="ETCD_INITIAL_CLUSTER=node01=http://192.168.0.69:2380,node02=http://192.168.0.70:2380"
